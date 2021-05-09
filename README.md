@@ -7,3 +7,6 @@ The Backend of Nuber Eats Clone
    - npm i @nestjs/graphql graphql-tools graphql apollo-server-express
    - code firest(autoSchemaFile: join(process.cwd(), 'src/schema.gql'),)
    
+
+### TypeORM
+  - npm i @nestjs/typeorm typeorm pg
