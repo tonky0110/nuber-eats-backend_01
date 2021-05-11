@@ -28,8 +28,7 @@ export class RestaurantResolver {
 
     @Mutation(returns => Boolean)
     async updateRestaurant(
-        @Args('id') id: number,
-        @Args('data') data: UpdateRestaurantDto 
+        @Args() UpdateRestaurantDto: UpdateRestaurantDto
     ) {
         return true;
     }
