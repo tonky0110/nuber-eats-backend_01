@@ -9,18 +9,18 @@ export class Restaurant {
     id: number
 
     @Field(type => String) // for Graphql
-    @Column() // form typeORM
+    @Column() // for typeORM
     name: string;
 
     @Field(type => Boolean) // for Graphql
-    @Column() // form typeORM
+    @Column() // for typeORM
     isVegan?: boolean;
 
     @Field(type => String) // for Graphql
-    @Column() // form typeORM
+    @Column() // for typeORM
     address: string;
 
     @Field(type => String) // for Graphql
-    @Column() // form typeORM
+    @Column() // for typeORM
     ownerName: string;
 }
