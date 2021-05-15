@@ -1,7 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import * as jwt from 'jsonwebtoken';
 import { CreateAccountInput } from "./dtos/create-account.dto";
 import { LoginInput, LoginOutput } from "./dtos/login.dto";
 import { User } from "./entities/user.entity";
@@ -65,7 +64,7 @@ export class UsersService {
             }
 
             // 3. jwt 토큰생성.
-            const token = jwt.sign({id: user.id}, this.config.get('SECRET_KEY'));
+            const token = this.jwtService.sign(user.id);
             return {
                 ok: true,
                 token
