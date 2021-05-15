@@ -40,7 +40,9 @@ export class UsersResolver {
                 error,
                 token: null
             };
-        }
-        
+        }   
     }
+
+    @Query(returns => User)
+    me() {}
 }

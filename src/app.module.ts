@@ -51,3 +51,11 @@ import { JwtModule } from './jwt/jwt.module';
   providers: [],
 })
 export class AppModule {}
+
+// Middleware를 modules에서 적용하는 방법.
+// export class AppModule implements NestModule {
+//   configure(consumer: MiddlewareConsumer) {
+//     consumer.apply(JwtMiddleware).forRoutes({ path: "/graphql",method: RequestMethod.ALL }); // 적용 대상.
+//     // consumer.apply(JwtMiddleware).exclude({ path: "/api",method: RequestMethod.ALL }); // 제외 대상.
+//   }
+// }
