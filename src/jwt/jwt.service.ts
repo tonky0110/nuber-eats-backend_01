@@ -16,4 +16,8 @@ export class JwtService {
         // return jwt.sign(payload, this.configService.get('PRIVATE_KEY')); // 이렇게도 가능
         return jwt.sign({ id: userId }, this.options.privateKey);
     }
+
+    verity(token: string) {
+        return jwt.verify(token, this.options.privateKey);
+    }
 }
