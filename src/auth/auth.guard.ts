@@ -6,7 +6,6 @@ export class AuthGuard implements CanActivate {
     canActivate(context: ExecutionContext) {
         const gqlContext = GqlExecutionContext.create(context).getContext(); // http -> grapqh로 전환.
         const user = gqlContext['user'];
-        console.log(user);
         if (!user) {
             return false;
         }
