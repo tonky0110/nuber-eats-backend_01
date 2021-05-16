@@ -30,6 +30,7 @@ import { JwtMiddleware } from './jwt/jwt.middleware';
     }),
     GraphQLModule.forRoot({
       autoSchemaFile: true,
+      context: ({ req }) => ({ user: req["user"] }),
     }),
     TypeOrmModule.forRoot({
       type: "postgres",
@@ -56,7 +57,7 @@ import { JwtMiddleware } from './jwt/jwt.middleware';
 // Middleware를 modules에서 적용하는 방법.
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(JwtMiddleware).forRoutes({ path: "/graphql", method: RequestMethod.ALL }); // 적용 대상.
+    consumer.apply(JwtMiddleware).forRoutes({ path: "/graphql", method: RequestMethod.POST }); // 적용 대상.
     // consumer.apply(JwtMiddleware).exclude({ path: "/api",method: RequestMethod.ALL }); // 제외 대상.
   }
 }
