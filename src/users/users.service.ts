@@ -50,8 +50,11 @@ export class UsersService {
     async login({ email, password }: LoginInput): Promise<{ ok: boolean, error?: string, token?: string }> {
         try {
             // 1. email 주소가 같은 사용자로 검색해서 찾기.
-            const user = await this.users.findOne({ email });
-
+            const user = await this.users.findOne(
+                { email },
+                { select: ['id', 'password'] }
+            );
+            
             if (!user) {
                 return {
                     ok: false,
@@ -101,17 +104,23 @@ export class UsersService {
         return this.users.save(user);
     }
 
-    async verifyEmail({ code }: VerifyEmailInput): Promise<Boolean> {
-        const verification = await this.verifications.findOne(
-            { code },
-            { relations: ['user'] },
-        );
-
-        if (verification) {
-            verification.user.verified = true;
-            // console.log(verification);
-            this.users.save(verification.user);
+    async verifyEmail(code: string): Promise<Boolean> {
+        try {
+            const verification = await this.verifications.findOne(
+                { code },
+                { relations: ['user'] },
+            );
+    
+            if (verification) {
+                verification.user.verified = true;
+                console.log(verification.user);
+                this.users.save(verification.user);
+                return true;
+            }
+            throw new Error();
+        } catch (error) {
+            console.log(error);
+            return false;
         }
-        return false;
     }
 }

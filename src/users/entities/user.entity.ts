@@ -22,7 +22,7 @@ export class User extends CoreEntity {
     @IsEmail() // for class-validator
     email: string;
 
-    @Column() // for TypeORM
+    @Column({ select: false }) // for TypeORM
     @Field(type => String) // for graphql
     @IsString() // for class-validator
     password: string;
@@ -49,12 +49,14 @@ export class User extends CoreEntity {
     }
 
     async checkPassword(aPassword: string) : Promise<boolean> {
-        try {
-            const ok =  await bcrypt.compare(aPassword, this.password);
-            return ok;
-        } catch (error) {
-            console.log(error);
-            throw new InternalServerErrorException();
+        if (this.password) {
+            try {
+                const ok =  await bcrypt.compare(aPassword, this.password);
+                return ok;
+            } catch (error) {
+                console.log(error);
+                throw new InternalServerErrorException();
+            }
         }
     }
 }
